@@ -1,6 +1,7 @@
 
 use std::num::Wrapping;
-use num::{ Integer, Float, FromPrimitive, cast, NumCast };
+use num::{ Integer, Float, cast, NumCast };
+use std::ops::{ Mul, Div };
 
 
 // UWB microsecond (uus) to device time unit (dtu, around 15.65 ps) conversion factor.
@@ -12,51 +13,49 @@ pub const DTU_TO_US_TIME: f64 = 1.0 / 128.0 / 499.2;
 
 
 pub fn dwt_uus_to_us<T>(uus: T) -> T
-where T: Float + FromPrimitive,
+where T: Float + Mul<f64, Output=T>,
 {
     // (65536.0 / 128.0 / 499.2)
-    // uus * (512.0 / 499.2)
-    uus * T::from_f64(512.0 / 499.2).unwrap()
+    uus * (512.0 / 499.2)
 }
 
 pub fn dwt_us_to_uus<T>(us: T) -> T
-where T: Float + FromPrimitive,
+where T: Float + Mul<f64, Output=T>,
 {
     // (128.0 * 499.2 / 65536.0)
-    // us * 0.975
-    us * T::from_f64(0.975).unwrap()
+    us * 0.975
 }
 
 pub fn dwt_uus_to_ticks<T, To>(uus: T) -> To
-where T: Float + FromPrimitive,
+where T: Float + Mul<f64, Output=T>,
     To: Integer + NumCast,
 {
     // uus * 65536.0
-    cast::<T, To>(uus * T::from_f64(65536.0).unwrap()).unwrap()
+    cast::<T, To>(uus * 65536.0).unwrap()
 }
 
 pub fn dwt_ticks_to_uus<T, To>(ticks: T) -> To
 where T: Integer + NumCast,
-    To: Float + FromPrimitive,
+    To: Float + Div<f64, Output=To>,
 {
     // ticks / 65536.0
-    cast::<T, To>(ticks).unwrap() / To::from_f64(65536.0).unwrap()
+    cast::<T, To>(ticks).unwrap() / 65536.0
 }
 
 pub fn dwt_us_to_ticks<T, To>(us: T) -> To
-where T: Float + FromPrimitive,
+where T: Float + Mul<f64, Output=T>,
     To: Integer + NumCast,
 {
     // us * 63897.6
-    cast::<T, To>(us * T::from_f64(63897.6).unwrap()).unwrap()
+    cast::<T, To>(us * 63897.6).unwrap()
 }
 
 pub fn dwt_ticks_to_us<T, To>(ticks: T) -> To
 where T: Integer + NumCast,
-    To: Float + FromPrimitive,
+    To: Float + Div<f64, Output=To>,
 {
     // ticks / 63897.6
-    cast::<T, To>(ticks).unwrap() / To::from_f64(63897.6).unwrap()
+    cast::<T, To>(ticks).unwrap() / 63897.6
 }
 
 
