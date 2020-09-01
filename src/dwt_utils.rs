@@ -4,6 +4,10 @@ use num::{ Integer, Float, cast, NumCast };
 use std::ops::{ Mul, Div };
 
 
+pub type Timestamp = u64;
+pub type TimestampDiff = i64;
+
+
 // UWB microsecond (uus) to device time unit (dtu, around 15.65 ps) conversion factor.
 // 1 uus = 512 / 499.2 µs and 1 µs = 499.2 * 128 dtu.
 pub const UUS_TO_DTU_TIME: f64 = 65536.0;

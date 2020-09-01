@@ -1,0 +1,27 @@
+[package]
+name = "uwb_clock_tracker"
+version = "0.1.0"
+authors = ["drivextech <drivextech@outlook.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+num = '~0.3'
+nalgebra = '~0.22'
+clap = "~2.33"
+csv = "~1.1"
+string-error = "~0.1"
+
+[dev-dependencies]
+rand = "~0.7"
+rand_distr = "~0.3"
+
+
+[lib]
+name = "uwb_clock_tracker"
+path = "src/lib.rs"
+
+[[bin]]
+name = "main"
+path = "src/bin/main.rs"
