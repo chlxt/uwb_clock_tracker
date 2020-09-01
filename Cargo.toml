@@ -23,5 +23,5 @@ name = "uwb_clock_tracker"
 path = "src/lib.rs"
 
 [[bin]]
-name = "main"
-path = "src/bin/main.rs"
+name = "clock_tracker"
+path = "src/bin/clock_tracker.rs"
